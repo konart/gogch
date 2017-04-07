@@ -1,0 +1,12 @@
+==prepareStatement==
+==Метод получения ответа от выполнения запроса.==
+type: body
+name: prepareStatement
+desc: Метод получения ответа от выполнения запроса
+
+{{ range .InParams }}
+    {{ . }}
+{{ end }}
+{{ range .OutParams }}
+    {{ . }}
+{{ end }}

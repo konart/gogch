@@ -1,0 +1,14 @@
+==method==
+
+Module.modify :{{ .ModuleName }} do
+	methods :{{ .MethodName }} => <<-'METHOD'
+##{}
+		def {{ .MethodName }}({{ range .MethodParams }}{{ . }}{{ end }})
+
+			{{ .Comment }}
+
+			{{ .MethodBody }}
+
+		end
+	METHOD
+end

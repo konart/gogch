@@ -1,0 +1,8 @@
+==comment==
+
+# {{ .Author }} {{ .Date }}
+# Модуль канала поллера. {{ .ChannelName }}
+# {{ .Description }}
+#
+# $TfsSource: $
+#
