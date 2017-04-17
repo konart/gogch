@@ -2,12 +2,30 @@ package main
 
 import (
 	"os"
-	"text/template"
+	//"text/template"
 	"bufio"
+	"errors"
 	"fmt"
 	"regexp"
-	"errors"
 )
+
+type Feature interface {
+	Init()
+	ListOptions()
+	RequestAddInfo()
+	ReadAnswer()
+	isDone() bool
+	Done()
+}
+
+func Execute(f Feature) {
+	f.Init()
+	for !f.isDone() {
+		f.RequestAddInfo()
+		f.ListOptions()
+		f.ReadAnswer()
+	}
+}
 
 type Method struct {
 	ModuleName   string
@@ -22,14 +40,18 @@ type TemplateReader struct {
 }
 
 func main() {
-	m := &Method{"TestModule", "prepareStatement", []string{"arg1"}, "Some Comment", "Body"}
-	t, _ := template.ParseFiles("template_examples/method.txt")
-	t.Execute(os.Stdout, m)
-	fmt.Println("===============")
-	reader := &TemplateReader{false}
-	reader.readTemplates("template_examples/method.txt")
-}
+	cron := &Cron{}
+	Execute(cron)
 
+	fmt.Printf("Your choice is: %s", cron.enabled[0])
+
+	//m := &Method{"TestModule", "prepareStatement", []string{"arg1"}, "Some Comment", "Body"}
+	//t, _ := template.ParseFiles("template_examples/method.txt")
+	//t.Execute(os.Stdout, m)
+	//fmt.Println("===============")
+	//reader := &TemplateReader{false}
+	//reader.readTemplates("template_examples/method.txt")
+}
 
 func (t *TemplateReader) readTemplates(path string) {
 	file, _ := os.Open(path)
